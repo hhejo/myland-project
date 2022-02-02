@@ -1,0 +1,4 @@
+.idea
+myland.db
+*.pyc
+__pycache__
