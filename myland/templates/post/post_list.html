@@ -17,7 +17,7 @@
       <td>
         <a href="{{ url_for('post.detail', post_id=post.id) }}" style="text-decoration-line: none; color: white;">{{ post.title }}</a>
       </td>
-      <td>{{ post.create_date }}</td>
+      <td>{{ post.create_date|datetime }}</td>
     </tr>
     {% endfor %}
     {% else %}
