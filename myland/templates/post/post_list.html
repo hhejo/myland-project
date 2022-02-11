@@ -16,6 +16,7 @@
       <td>{{ post_list.total - ((post_list.page - 1) * post_list.per_page) - loop.index0 }}</td>
       <td>
         <a href="{{ url_for('post.detail', post_id=post.id) }}" style="text-decoration-line: none; color: white;">{{ post.title }}</a>
+        <!-- 댓글 개수 표시 예정 -->
       </td>
       <td>{{ post.create_date|datetime }}</td>
     </tr>
