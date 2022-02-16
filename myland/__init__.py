@@ -18,9 +18,10 @@ def create_app():
     
     # Blueprint
     # 블루브린트 사용이 없다면 create_app 함수 내부에 계속 라우트 함수를 추가해야 함 (hello_pybo같은)
-    from .views import main_views, post_views
+    from .views import main_views, post_views, auth_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(post_views.bp)
+    app.register_blueprint(auth_views.bp)
     
     # 필터
     from .filter import format_datetime
