@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, g
 from werkzeug.utils import redirect
 from .. import db
 from ..models import Post
@@ -26,7 +26,7 @@ def detail(post_id):
 def create():
     form = PostForm()
     if request.method == 'POST' and form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, create_date=datetime.now())
+        post = Post(title=form.title.data, content=form.content.data, create_date=datetime.now(), user=g.user)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('main.index'))
