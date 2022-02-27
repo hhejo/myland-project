@@ -3,6 +3,7 @@ from werkzeug.utils import redirect
 from .. import db
 from ..models import Post
 from ..forms import PostForm
+from .auth_views import login_required
 from datetime import datetime
 
 bp = Blueprint('post', __name__, url_prefix='/post')
@@ -23,6 +24,7 @@ def detail(post_id):
 
 
 @bp.route('/create/', methods=('GET', 'POST'))
+@login_required
 def create():
     form = PostForm()
     if request.method == 'POST' and form.validate_on_submit():
