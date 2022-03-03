@@ -11,6 +11,11 @@
           <div>{{ post.create_date|datetime }}</div>
         </div>
       </div>
+      {% if g.user == post.user %}
+      <div class="my-3">
+        <a href="{{ url_for('post.modify', post_id=post.id) }}" class="btn btn-sm btn-outline-secondary">수정</a>
+      </div>
+      {% endif %}
     </div>
   </div>
   <!-- 원래 답변 넣는 구간 -->
