@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, g
+from flask import Blueprint, render_template, request, url_for, g, flash
 from werkzeug.utils import redirect
 from .. import db
 from ..models import Post
@@ -33,3 +33,22 @@ def create():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('post/post_form.html', form=form)
+
+
+@bp.route('/modify/<int:question_id>', methods=('GET', 'POST'))
+@login_required
+def modify(post_id):
+    post = Post.query.get_or_404(post_id)
+    if g.user != post.user:
+        flash('수정권한이 없습니다.')
+        return redirect(url_for('post.detail', post_id=post_id))
+    if request.method == 'POST':
+        form = PostForm()
+        if form.validate_on_submit():
+            form.populate_obj(post)
+            post.modify_date = datetime.now()
+            db.session.commit()
+            return redirect(url_for('post.detail', post_id=post_id))
+        else:
+            form = PostForm(obj=post)
+        return render_template('post/post_form.html', form=form)
